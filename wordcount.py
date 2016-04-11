@@ -1,20 +1,26 @@
-"""
-Code should:
-- Open a file
-- count how many times a space-separated word occurs in the file
-- print that count to the screen
-"""
+def get_word_count(file_name):
+    """
+    Code should:
+    - Open a file
+    - count how many times a space-separated word occurs in the file
+    - print that count to the screen
+    """
 
-text_file = open('twain.txt')
+    text_file = open(file_name)
 
-word_count = {}
+    word_count = {}
 
-# combine all line lists into one long list .extend/.append
-for line in text_file:
-    words = line.split()
+    # combine all line lists into one long list .extend/.append
+    all_words = []
 
-    for word in words:
-        # remove punctuation at end of word, allowing for words that are 
+    # open file, add all words in file to all_words
+    for line in text_file:
+        words = line.split()
+        all_words.extend(words)
+
+    # count appearances of each word
+    for word in all_words:
+        # remove punctuation at end of word, allowing for words that are numbers
         while not word[-1].isalpha() and not word[-1].isdigit() and len(word) > 1:
             word = word[:-1]
 
@@ -23,6 +29,9 @@ for line in text_file:
         # increment word count by 1
         word_count[word] = word_count.get(word, 0) + 1
 
-# print words in alphabetical order
-for key, value in sorted(word_count.iteritems())[:100]:
-    print "{}: {:,}".format(key, value)
+    # print words in alphabetical order
+    for key, value in word_count.iteritems():
+        print "{}: {:,}".format(key, value)
+
+
+get_word_count('twain.txt')
