@@ -7,8 +7,17 @@ Code should:
 
 text_file = open('test.txt')
 
+word_count = {}
+
 for line in text_file:
     line = line.rstrip()
-    word = line.split(' ')
 
-    print word
+    words = line.split()
+
+    for word in words:
+        if word in word_count:
+            word_count[word] += word_count[word]
+        else:
+            word_count[word] = 1
+
+print word_count
