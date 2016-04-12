@@ -6,6 +6,8 @@ Code should:
 """
 
 import sys
+import string
+import re
 
 text_file = open(sys.argv[1])
 
@@ -16,17 +18,16 @@ all_words = []
 
 # open file, add all words in file to all_words
 for line in text_file:
-    words = line.split()
+    words = re.split('[(--)\s]',line)
+
     all_words.extend(words)
 
 # count appearances of each word
 for word in all_words:
-    # remove punctuation at end of word, allowing for words that are numbers
-    while not word[-1].isalpha() and not word[-1].isdigit() and len(word) > 1:
-        word = word[:-1]
 
-    while not word[0].isalpha() and not word[0].isdigit() and len(word) > 1:
-        word = word[1:]
+    #removes all punctuation from beginnings and ends of words
+    word = word.strip(string.punctuation)
+
     # increment word count by 1
     word_count[word] = word_count.get(word, 0) + 1
 
